@@ -2,7 +2,7 @@ let isTitleSmall = false;
 function search() {
     const inputValue = document.getElementById('inputField').value; // 검색어
 
-    if(inputValue.length == 0){ // 검색어 없을 때
+    if (inputValue.length == 0) { // 검색어 없을 때
         alert("검색어를 입력해주세요!");
         return 0;
     }
@@ -23,16 +23,40 @@ function search() {
     const radioValueList = document.getElementsByName('option');
     sessionStorage.setItem('inputValue', inputValue);
     radioValueList.forEach(element => {
-        if(element.checked){
+        if (element.checked) {
             sessionStorage.setItem('radioValue', element.value);
         }
     });
 
     // 검색 결과 iframe출력 
     let div = document.getElementById('Main_Select');
-    div.innerHTML ='';
+    div.innerHTML = '';
     let str = ''
 
     str += '<iframe src="Main_Select.html" width="100%" height= "570px"></iframe>'
     div.innerHTML += str;
+}
+
+//modal 이용해서 출력하기
+function show_detail() {
+    const itemSeq = sessionStorage.getItem('itemSeq'); //품목기준코드 가져오기
+
+    //상세 정보 iframe 출력
+    let div = document.getElementById('Main_Detail');
+    div.innerHTML = '';
+    let str = ''
+
+    str += '<iframe src="Main_Detail.html"></iframe>'
+    div.innerHTML += str;
+    do_modal();
+}
+
+function do_modal(){
+    let modal = document.getElementById("Main_Detail");
+    modal.style.display="flex";
+}
+
+function modal_close() {
+    let modal = document.getElementById('Main_Detail');
+    modal.style.display = "none";
 }
