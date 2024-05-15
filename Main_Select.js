@@ -27,18 +27,19 @@ function search() {
 function rowClicked() {
 
     var table = document.getElementById('stable');
-    var rowList = table.rows; 
+    var rowList = table.rows;
 
     for (i = 1; i < rowList.length; i++) {//thead부분 제외.
 
         var row = rowList[i];
-        
+
         var lastCell = row.cells[4];
+        
         lastCell.onclick = function () {
             //추가 버튼 눌렀을 때 그 행 정보 갖고 내 약에 추가하기
-            console.log("hihihi"); 
-            var value = this.parentNode.cells[1].innerHTML;// 현재 행의 품목 기준코드를 자겨오기.
-            console.log("jhohohoh");
+            console.log("내약에 추가하기");
+            var value = this.parentNode.cells[1].innerHTML;// 현재 행의 품목 기준코드를 가져오기.
+            console.log('현재 행의 품목 기준코드' + value);
 
             event.stopPropagation(); // 아래 이벤트 수행 안되게 함.
         }
@@ -46,8 +47,15 @@ function rowClicked() {
         row.onclick = function () {
             var row_value = this.cells[1].innerHTML; //선택 행의 품목기준코드 가져오기
             console.log(row_value); // 가져온 값으로 약 api 재 호출해서 detail 열어 주기!
+            
+            //팝업창으로 세부사항 띄우기
+            //window.open("Main_Detail.html", "_blank", "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1100, height=720, top=0,left=0");
 
-            window.open("Main_Detail.html", "_blank", "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1100, height=720, top=0,left=0");
+
+            //modal로 띄우기
+            sessionStorage.setItem('itemSeq', row_value,'*');
+            // 부모 frame에서 띄워야함
+            window.parent.show_detail();
 
         }
     }
