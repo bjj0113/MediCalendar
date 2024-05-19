@@ -13,7 +13,8 @@ function load_detail() {
     title.innerHTML = "";
 
     //공공데이터 포털에서 약 세부정보 받아오기
-    var serviceKey = 'mDXichXudHiamKs2xLEvtHLg8mqZSUG1lAVx481XKZCLyRiv3LDEJkYtjE%2Baayo2CdIohYl2lQm0ir4o6ODZpQ%3D%3D';
+    //api 키 서버로 보내서 보안 강화하기
+    var serviceKey = 'mDXichXudHiamKs2LEvtHLg8mqZSUG1lAVx481XKZCLyRiv3LDEJkYtjE%2Baayo2CdIohYl2lQm0ir4o6ODZpQ%3D%3D'; 
     var xhr = new XMLHttpRequest();
     var url = 'http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList';
     var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + serviceKey;

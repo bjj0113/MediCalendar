@@ -8,8 +8,8 @@
     <style>
         @import url("myPage.css");
     </style>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
 </head>
-
 
 <body>
     <main>
@@ -25,41 +25,42 @@
                 <div class="myMedicineList-list" id="myMedicineList_List"></div>
             </div>
             <button type="button" id="myMedicineList_Add">추가</button>
-            <script type="module" src="medicineList.js"></script>
         </section>
 
         <!-- 캘린더 파트 -->
         <section id="myCalendar">
             <!-- 달력 -->
-            <article class="myCalendar_Container">
-                <div class="myCalendar-Header">
-                    <button type="button" id="currentMonthButton">
-                        <span id="currentMonth"></span>
-                    </button>
-                </div>
-                <div class="myCalendar-days">
-                    <div class="day">일</div>
-                    <div class="day">월</div>
-                    <div class="day">화</div>
-                    <div class="day">수</div>
-                    <div class="day">목</div>
-                    <div class="day">금</div>
-                    <div class="day">토</div>
-                </div>
-                <div class="myCalendar-dates" id="myCalendar_Dates"></div>
-            </article>
+            <!-- <article class="myCalendar_Container">
+            <div class="myCalendar-Header">
+                <button type="button" id="currentMonthButton">
+                    <span id="currentMonth"></span>
+                </button>
+            </div>
+            <div class="myCalendar-days">
+                <div class="day">일</div>
+                <div class="day">월</div>
+                <div class="day">화</div>
+                <div class="day">수</div>
+                <div class="day">목</div>
+                <div class="day">금</div>
+                <div class="day">토</div>
+            </div>
+            <div class="myCalendar-dates" id="myCalendar_Dates"></div>
+        </article> -->
+            <div id="calendar">
+
+            </div>
 
             <!-- 먹는 약 출력 -->
             <article id="medicine_Container">
                 <div class="medicine-head">
-                    <div id="todayDate"></div>
-                    <div class="head">먹는 시간</div>
-                    <div class="head">자세히</div>
-                    <div class="head">색</div>
+                    <span id="todayDate"></span>
+                    <span class="head">먹는 시간</span>
+                    <span class="head">자세히</span>
+                    <span class="head">색</span>
                 </div>
                 <div class="medicineList" id="medicineList"></div>
             </article>
-            <script type="module" src="calendar.js"></script>
         </section>
 
         <!-- 약 캘린더에 추가하기(Modal) -->
@@ -72,29 +73,20 @@
                     <li>복용 기간 입력 :
                         <input type="number" name="periodValue" value="1" min="1" max="100" step="1">
                         <select name="period">
-                            <option value="day" selected>일</option>
-                            <option value="week">주</option>
-                            <option value="month">월</option>
+                            <option value="일" selected>일</option>
+                            <option value="주">주</option>
+                            <option value="개월">월</option>
                         </select>
                     </li>
-                    <li>복용 주기 입력 :
-                        <label><input type="checkbox" name="days" value="1">월</label>
-                        <label><input type="checkbox" name="days" value="2">화</label>
-                        <label><input type="checkbox" name="days" value="3">수</label>
-                        <label><input type="checkbox" name="days" value="4">목</label><br>
-                        <label><input type="checkbox" name="days" value="5">금</label>
-                        <label><input type="checkbox" name="days" value="6">토</label>
-                        <label><input type="checkbox" name="days" value="0">일</label>
-                        <label><input type="checkbox" name="days" value="selectall" onclick="selectAll(this)">매일</label>
-                    </li>
+                    <li>종료 날짜 입력 : <input type="date" name="endDate"></li>
                     <li>일일 복용량 :
-                        <input type="number" name="dailyDose" value="1" min="1" max="3" step="1">회 (
-                        <label><input type="checkbox" name="meal" value="breakfast">아침</label>
-                        <label><input type="checkbox" name="meal" value="lunch">점심</label>
-                        <label><input type="checkbox" name="meal" value="dinner">저녁</label> )<br>
-                        ( <label><input type="checkbox" name="meal-period" value="before">식전</label>
-                        <label><input type="checkbox" name="meal-period" value="during">식중</label>
-                        <label><input type="checkbox" name="meal-period" value="after">식후</label> )
+                        <input type="number" name="dailyDose" value="1" min="1" max="5" step="1">회 (
+                        <label><input type="checkbox" name="meal" value="아침">아침</label>
+                        <label><input type="checkbox" name="meal" value="점심">점심</label>
+                        <label><input type="checkbox" name="meal" value="저녁">저녁</label> )<br>
+                        ( <label><input type="checkbox" name="meal-period" value="식전">식전</label>
+                        <label><input type="checkbox" name="meal-period" value="식중">식중</label>
+                        <label><input type="checkbox" name="meal-period" value="식후">식후</label> )
                     </li>
                 </ul>
                 <button id="modal_close">x</button>
@@ -103,7 +95,6 @@
             </div>
         </div>
     </main>
-
     <aside>
         <!-- 로그인 버튼 -->
         <input id="login" type="button" value="로그인" size="30">
@@ -124,17 +115,9 @@
             </ul>
         </nav>
     </aside>
-
-    <script>
-        function selectAll(selectAll) {
-            const dayscheckboxes = document.getElementsByName("days");
-
-            dayscheckboxes.forEach((checkbox) => {
-                checkbox.checked = selectAll.checked;
-            })
-        }
-    </script>
     <script type="module" src="modal.js"></script>
+
+
 </body>
 
 </html>
