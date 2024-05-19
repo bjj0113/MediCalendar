@@ -94,6 +94,7 @@ function rowClicked(event) {
 
     //modal로 띄우기
     sessionStorage.setItem('itemSeq', itemSeq, '*');
+
     // 부모 frame에서 띄워야함
     window.parent.show_detail();
 
@@ -108,7 +109,8 @@ function lastrowClicked(event) {
     
     //추가 버튼 눌렀을 때 그 행 정보 갖고 내 약에 추가하기  
     //세션스토리지에 추가
-    sessionStorage.setItem('itemSeq', itemSeq, '*');
+    sessionStorage.setItem('itemSeq', itemSeq, '*');    //세션에 품목기준코드 추가
+    sessionStorage.setItem('itemName', itemName, '*');  //세션에 약품명 추가
     console.log("내약에 추가하기");
     console.log('현재 행의 품목 기준코드:' + itemSeq); 
 
