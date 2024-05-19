@@ -1,5 +1,37 @@
-import { medicineInfo } from "./modal.js";
+import { calendarEvent } from "./modal.js";
 
+var calendar;
+
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {                      // 위쪽 툴바
+            start : 'title',
+            end : 'prev next',
+        },
+        dayHeaderFormat: { weekday: 'short' },// 요일 header format
+        selectable: true,                     // 요일 선택 가능하도록
+        dragScroll: false,
+        dateClick: function() {               // 날짜 선택 시 발동함수
+            
+        },
+        events: [{
+            title:'장용정',
+            start:'2024-05-18',
+            end:'2024-05-24'
+        }],
+    });
+    renderCalendar();
+  }
+);
+
+export function renderCalendar(){
+    calendar.render();
+}
+
+
+/* 이전 코드
 const calendarDates = document.getElementById("myCalendar_Dates");
 const calendarMonth = document.getElementById("currentMonth");
 const todayDate = document.getElementById("todayDate");
@@ -73,4 +105,4 @@ function isScheduleExist(date, month, index){
         return false;
 }
 
-renderCalendar();
+renderCalendar(); */
