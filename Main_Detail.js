@@ -29,7 +29,6 @@ function load_detail() {
             //콘솔api 요청 정보 찍어보기
             //console.log('Status: ' + this.status + 'nHeaders: ' + JSON.stringify(this.getAllResponseHeaders()) + 'nBody: ' + this.responseText);
 
-
             //상세정보 받아오기
             var items = response.body.items; // 응답 데이터에서 items 추출
             var itemImage;

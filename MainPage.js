@@ -35,7 +35,7 @@ function search() {
 
     str += '<iframe src="Main_Select.html" width="100%" height= "570px"></iframe>'
     div.innerHTML += str;
-    
+
 }
 
 //modal 이용해서 출력하기
@@ -52,9 +52,9 @@ function show_detail() {
     do_modal();
 }
 
-function do_modal(){
+function do_modal() {
     let modal = document.getElementById("Main_Detail");
-    modal.style.display="flex";
+    modal.style.display = "flex";
 }
 
 function modal_close() {

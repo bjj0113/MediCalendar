@@ -58,7 +58,7 @@ btnCalendarAddModal.addEventListener("click", () => {
     // 약 캘린더 추가에 대한 json화
     let json = JSON.stringify(medicineInformation);
     console.log(json);
-    
+
     addCalendarInfo(medicineInformation);
     renderCalendar();
     /*
@@ -137,5 +137,6 @@ function addCalendarInfo(medicineInformation) {
             }
         }
     }
+    
     console.log(medicineInfo);
 }

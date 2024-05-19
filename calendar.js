@@ -7,7 +7,7 @@ const todayDate = document.getElementById("todayDate");
 const today = new Date();
 let currentMonth = today.getMonth();        // 현재 몇 월인지 저장
 let currentYear = today.getFullYear();      // 현재 년도를 저장
-switch(today.getDay()){
+switch (today.getDay()) {
     case 0: todayDate.textContent = today.getDate() + ".일"; break;
     case 1: todayDate.textContent = today.getDate() + ".월"; break;
     case 2: todayDate.textContent = today.getDate() + ".화"; break;
@@ -41,17 +41,17 @@ export function renderCalendar() {
         const dateElement = document.createElement("div");  // div 요소 생성
         dateElement.classList.add("date");                  // date 클래스 추가
         dateElement.textContent = i;                        // 날짜 표시
-        dateElement.onclick = function(){                   // 클릭된 날짜에 대한 처리
+        dateElement.onclick = function () {                   // 클릭된 날짜에 대한 처리
 
         };
 
-        if(isScheduleExist(i, currentMonth, 1)){
+        if (isScheduleExist(i, currentMonth, 1)) {
             let firstBar = document.createElement("div");
-            firstBar.classList.add("first","bar");
+            firstBar.classList.add("first", "bar");
         }
-        if(isScheduleExist(i, currentMonth, 2))
+        if (isScheduleExist(i, currentMonth, 2))
             dateElement.classList.add("second");
-        if(isScheduleExist(i, currentMonth, 3))
+        if (isScheduleExist(i, currentMonth, 3))
             dateElement.classList.add("third");
 
         calendarDates.appendChild(dateElement);             // 캘린더에 추가하기
@@ -66,10 +66,10 @@ export function renderCalendar() {
     }
 }
 
-function isScheduleExist(date, month, index){
-    if(medicineInfo[month+"월"+date+"일,"+index] != null)
+function isScheduleExist(date, month, index) {
+    if (medicineInfo[month + "월" + date + "일," + index] != null)
         return true;
-    else 
+    else
         return false;
 }
 
