@@ -12,11 +12,14 @@ function generateStateToken() {
 }
 
 //콜백 주소, 일단 로그인하면 마이페이지로 이동하게 
-var redirectURI = encodeURI("http://localhost:8080/myPage.html");
+var redirectURI; // = encodeURI("http://localhost:8080/MainPage.html");
 
 var api_url = "";
 
 router.get('/naverlogin', function (req, res) {
+    var currentUrl = req.query.currentUrl; // 클라이언트에서 hidden input에 추가한 현재 페이지의 URL
+    redirectURI = encodeURI(currentUrl);
+
     var stateToken = generateStateToken(); //랜덤한문자열이나 해시값을 생성하는 함수를 사용 
     var state = encodeURIComponent(stateToken);
     

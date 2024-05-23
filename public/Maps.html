@@ -24,8 +24,20 @@
     </main>
 
     <aside>
-        <!-- 로그인 버튼 -->
-        <input id="login" type="button" value="로그인" size="30">
+        <!-- 로그인 버튼 누르면 바로 네이버 로그인 뜨게 -->
+        <form action="/auth/naverlogin" method="get">
+            <input type="hidden" id="currentUrl" name="currentUrl" value="">
+            <input id="login" type="submit" value="로그인" size="30" onclick="">
+        </form>
+        <script>
+            function setCurrentUrl() {
+                var currentUrl = window.location.href;
+                document.getElementById('currentUrl').value = currentUrl;
+            }
+
+            // 페이지 로드 시 setCurrentUrl 함수 호출
+            window.onload = setCurrentUrl;
+        </script>
         <br>
         <nav>
             <!-- 목차 -->
@@ -35,10 +47,10 @@
                     <li><a href="MainPage.html" target="_self">Home</a></li>
                 </label>
                 <label>
-                    <li><a href="MainPage.html" target="_self">My Medicine</a></li>
+                    <li><a href="MyPage.html" target="_self">My Medicine</a></li>
                 </label>
                 <label>
-                    <li><a href="MainPage.html" target="_self">Pharmacy</a></li>
+                    <li><a href="Maps.html" target="_self">Pharmacy</a></li>
                 </label>
             </ul>
         </nav>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        @import url("myPage.css");
+        @import url("MyPage.css");
     </style>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
 </head>
@@ -96,8 +96,20 @@
         </div>
     </main>
     <aside>
-        <!-- 로그인 버튼 -->
-        <input id="login" type="button" value="로그인" size="30">
+        <!-- 로그인 버튼 누르면 바로 네이버 로그인 뜨게 -->
+        <form action="/auth/naverlogin" method="get">
+            <input type="hidden" id="currentUrl" name="currentUrl" value="">
+            <input id="login" type="submit" value="로그인" size="30" onclick="">
+        </form>
+        <script>
+            function setCurrentUrl() {
+                var currentUrl = window.location.href;
+                document.getElementById('currentUrl').value = currentUrl;
+            }
+
+            // 페이지 로드 시 setCurrentUrl 함수 호출
+            window.onload = setCurrentUrl;
+        </script>
         <br>
         <nav>
             <!-- 목차 -->
