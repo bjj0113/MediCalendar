@@ -14,32 +14,36 @@ body {
     margin-top: 10px;
     height: 500px;
     overflow-y: scroll;
-   
+
 }
+
 #Info section span {
     font-weight: bold;
 }
-header span{
+
+header span {
     font-size: 30px;
     padding-left: 10px;
     font-weight: bold;
 }
 
-#close{
+#close {
     float: right;
     font-weight: bold;
     border-radius: 40%;
     border: 10px;
     background-color: white;
 }
-#close:hover{
+
+#close:hover {
     background-color: gray;
 }
 
 article h3 {
     display: inline;
 }
-article{
+
+article {
     border-top: 1px solid black;
     border-color: gray;
 }

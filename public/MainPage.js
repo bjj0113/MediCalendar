@@ -31,7 +31,7 @@ function search() {
     // 검색 결과 iframe출력 
     let div = document.getElementById('Main_Select');
     div.innerHTML = '';
-    let str = ''
+    let str = '';
 
     str += '<iframe src="Main_Select.html" width="100%" height= "570px"></iframe>'
     div.innerHTML += str;
@@ -51,9 +51,9 @@ function show_detail() {
     do_modal();
 }
 
-function do_modal(){
+function do_modal() {
     let modal = document.getElementById("Main_Detail");
-    modal.style.display="flex";
+    modal.style.display = "flex";
 }
 
 function modal_close() {

@@ -23,25 +23,43 @@
             <label><input type="radio" name="option" value="efcyQesitm"> 효능</label>
             <br>
             <br>
-            <label><input id="inputField" type="text" onkeypress="if(event.keyCode=='13'){event.preventDefault(); search();}"
-                placeholder="검색 분류를 선택 후 검색어를 입력해 주십시오."></label>
+            <label><input id="inputField" type="text"
+                    onkeypress="if(event.keyCode=='13'){event.preventDefault(); search();}"
+                    placeholder="검색 분류를 선택 후 검색어를 입력해 주십시오."></label>
             <input type="button" id="search-btn" value="검색" onclick="search()">
             <h6>본 사이트는 식품의약품안전처의 의약품개요정보(e약은요) 공공데이터를 활용한 정보를 제공하고 있습니다.</h6>
         </form>
         <br>
-        
-        <!--  검색 결과 표시-->
+        <!-- 검색 결과 표시-->
         <div id="Main_Select">
         </div>
 
         <!-- 검색 세부사항 표시 -->
-        <div id ="Main_Detail">     
+        <div id="Main_Detail">
         </div>
     </main>
 
     <aside>
         <!-- 로그인 버튼 -->
-        <input id="login" type="button" value="로그인" size="30">
+        <!-- 네이버 로그인 이미지로 -->
+        <!-- <a href="/auth/naverlogin"> -->
+        <!-- <img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG" alt="네이버 로그인"> -->
+        <!-- </a> -->
+
+        <!-- 로그인 버튼 누르면 바로 네이버 로그인 뜨게 -->
+        <form action="/auth/naverlogin" method="get">
+            <input type="hidden" id="currentUrl" name="currentUrl" value="">
+            <input id="login" type="submit" value="로그인" size="30" onclick="">
+        </form>
+        <script>
+            function setCurrentUrl() {
+                var currentUrl = window.location.href;
+                document.getElementById('currentUrl').value = currentUrl;
+            }
+
+            // 페이지 로드 시 setCurrentUrl 함수 호출
+            window.onload = setCurrentUrl;
+        </script>
         <br>
         <nav>
             <!-- 목차 -->

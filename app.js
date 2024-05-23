@@ -1,77 +1,42 @@
-// Express 기본 모듈 불러오기
+const config = require('./config/env');
+const indexRouter = require('./routes/index');
+const authRouter = require('./routes/auth');
+
 var express = require('express')
-, http = require('http')
-, path = require('path');
+    , http = require('http')
+    , path = require('path');
 
-// Express의 미들웨어 불러오기
+//bodyParser 모듈
 var bodyParser = require('body-parser')
-, cookieParser = require('cookie-parser')
-, static = require('serve-static')
-, errorHandler = require('errorhandler');
-
-// 에러 핸들러 모듈 사용
-var expressErrorHandler = require('express-error-handler');
-
-// Session 미들웨어 불러오기
-var expressSession = require('express-session');
-
-// 클라이언트에서 ajax 요청 시 CORS 지원
-var cors = require('cors')
-, request = require('request');
+    , static = require('serve-static');
 
 // 익스프레스 객체 생성
 var app = express();
 
-// 기본 포트 설정
-app.set('port', process.env.PORT || 3000);
+//클라이언트에서 ajax로 요청 시 cors(다중 서버 접속) 지원
+var cors = require('cors');
 
-app.use(bodyParser.urlencoded({extended:false}))
-app.use(bodyParser.json())
-app.use('/public', static(path.join(__dirname, 'public')))
-app.use(cookieParser());
-app.use(expressSession({
-    secret:'my key', resave:true, saveUninitialized:true
-}));
-app.use(cors());
-
+//favicon.ico 잡아내기
 app.get('/favicon.ico', (req, res) => res.status(204));
 
-// 라우터 사용하여 라우팅 함수 등록
-var router = express.Router();
+// 기본 속성 설정
+app.set('port', process.env.PORT || 8080);
 
-router.get('/pharmacy', function(req, res){
-    var url = `https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=약국&coordinate=${req.query.coordinate}`;
+// body-parser를 이용해 application/x-www-form-urlencoded 파싱
+app.use(bodyParser.urlencoded({ extended: false }));
 
-    var options = {
-        url: url,
-        headers: {
-            'X-NCP-APIGW-API-KEY-ID': '4p1l06c97z',
-            'X-NCP-APIGW-API-KEY': 'VqOfsxYp0W7LuoJj1Kz1dz2hR4DjFk1IYgf3pAvF'
-        }
-    };
+// body-parser를 이용해 application/json 파싱
+app.use(bodyParser.json());
 
-    request.get(options, function(error, response, body){
-        if(!error && response.statusCode == 200) {
-            res.json(JSON.parse(body));
-        } else {
-            res.status(response.statusCode).json({error: error});
-        }
-    });
-});
+//public 폴더 오픈
+app.use('/public', static(path.join(__dirname, 'public')));
+app.use(static(path.join(__dirname, 'public')));
 
-app.use('/', router);
+app.use('/', indexRouter);
+app.use('/auth', authRouter);
 
-// 404 에러 페이지 처리
-var errorHandler = expressErrorHandler({
-    static: {
-        '404': './public/404.html'
-    }
-});
-
-app.use(expressErrorHandler.httpError(404));
-app.use(errorHandler);
 
 // Express 서버 시작
-http.createServer(app).listen(app.get('port'), function(){
-    console.log('Express server listening on port ' + app.get('port'));
+http.createServer(app).listen(app.get('port'), function () {
+    console.log('Express server listening on port '  + app.get("port"));
 });
