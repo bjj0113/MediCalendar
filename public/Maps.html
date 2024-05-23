@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>MediCalendar</title>
+    <link rel="stylesheet" href="Maps.css" />
+    <script src="Maps.js"></script>
+</head>
+
+<body>
+    <main id="maps">
+        <!-- 제목 -->
+        <div id="page-title">
+            <img id="main-img" src="galaxys7.png" alt="My Image">
+            MediCalendar
+        </div>
+
+        <!-- 지도 -->
+        <section>
+            지도api 표시하기!!
+        </section>
+        <br>
+    </main>
+
+    <aside>
+        <!-- 로그인 버튼 누르면 바로 네이버 로그인 뜨게 -->
+        <form action="/auth/naverlogin" method="get">
+            <input type="hidden" id="currentUrl" name="currentUrl" value="">
+            <input id="login" type="submit" value="로그인" size="30" onclick="">
+        </form>
+        <script>
+            function setCurrentUrl() {
+                var currentUrl = window.location.href;
+                document.getElementById('currentUrl').value = currentUrl;
+            }
+
+            // 페이지 로드 시 setCurrentUrl 함수 호출
+            window.onload = setCurrentUrl;
+        </script>
+        <br>
+        <nav>
+            <!-- 목차 -->
+            <ul>
+                <h1>Page</h1>
+                <label>
+                    <li><a href="MainPage.html" target="_self">Home</a></li>
+                </label>
+                <label>
+                    <li><a href="MyPage.html" target="_self">My Medicine</a></li>
+                </label>
+                <label>
+                    <li><a href="Maps.html" target="_self">Pharmacy</a></li>
+                </label>
+            </ul>
+        </nav>
+    </aside>
+
+</body>
+
+</html>
