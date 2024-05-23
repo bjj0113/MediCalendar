@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        @import url("MyPage.css");
+        @import url("myPage.css");
     </style>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
 </head>
@@ -19,49 +19,32 @@
         </header>
 
         <!-- 내 약 리스트 -->
-        <section id="myMedicineList">
+        <div id="myMedicineList">
             <span id="myMedicineList_Header">내 약 리스트</span>
             <div class="myMedicineList-Container">
                 <div class="myMedicineList-list" id="myMedicineList_List"></div>
             </div>
             <button type="button" id="myMedicineList_Add">추가</button>
-        </section>
+        </div>
 
         <!-- 캘린더 파트 -->
-        <section id="myCalendar">
+        <div id="myCalendar">
             <!-- 달력 -->
-            <!-- <article class="myCalendar_Container">
-            <div class="myCalendar-Header">
-                <button type="button" id="currentMonthButton">
-                    <span id="currentMonth"></span>
-                </button>
-            </div>
-            <div class="myCalendar-days">
-                <div class="day">일</div>
-                <div class="day">월</div>
-                <div class="day">화</div>
-                <div class="day">수</div>
-                <div class="day">목</div>
-                <div class="day">금</div>
-                <div class="day">토</div>
-            </div>
-            <div class="myCalendar-dates" id="myCalendar_Dates"></div>
-        </article> -->
-            <div id="calendar">
-
-            </div>
+            <div id="calendar"></div>
 
             <!-- 먹는 약 출력 -->
-            <article id="medicine_Container">
-                <div class="medicine-head">
-                    <span id="todayDate"></span>
-                    <span class="head">먹는 시간</span>
-                    <span class="head">자세히</span>
-                    <span class="head">색</span>
-                </div>
-                <div class="medicineList" id="medicineList"></div>
-            </article>
-        </section>
+            <table id="medicine_Container">
+                <thead>
+                    <tr class="medicine-head">
+                        <th><span id="todayDate"></span></th>
+                        <th>복용 횟수</th>
+                        <th>먹는 시간</th>
+                        <th>색</th>
+                    </tr>
+                </thead>
+                <tbody id="medicineList"></tbody>
+            </table>
+        </div>
 
         <!-- 약 캘린더에 추가하기(Modal) -->
         <div id="addMedicine_Modal">

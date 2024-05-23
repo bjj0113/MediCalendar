@@ -56,6 +56,7 @@ btnCalendarAddModal.addEventListener("click", () => {
 
 function initialization() {
     let today_Date = new Date();
+
     startDate.value = today_Date.toISOString().slice(0, 10);
     endDate.value = today_Date.toISOString().slice(0, 10);
     periodValue.value = 1;
@@ -95,7 +96,7 @@ function renderMedicineList() {
         medicineCalendar.onclick = function () {
             modal.style.display = "flex";
             initialization();
-            selectedMedicineName = medicineName.textContent;
+            selectedMedicineName = medicineName.textContent.substring(2);
         }
         buttons.appendChild(medicineCalendar);                      // div 요소에 캘린더 버튼 추가
 
@@ -103,6 +104,7 @@ function renderMedicineList() {
         medicineDelete.textContent = "-";                           // 삭제 버튼 표시
         medicineDelete.classList.add("delete");                     // delete 클래스 추가
         medicineDelete.onclick = function () {
+            deleteEvent(medicineName.textContent.substring(2));
             let p = this.parentElement;                             // buttons div 요소
             while (p.hasChildNodes()) {                               // buttons div 내부 요소 제거 
                 p.removeChild(p.firstChild);
@@ -125,12 +127,14 @@ renderMedicineList();
 
 // calendar.js
 let dayList = ["목", "금", "토", "일", "월", "화", "수"];
+let todayList = ["일", "월", "화", "수", "목", "금", "토"];
 
 let calendar;
 document.addEventListener('DOMContentLoaded', function () {
     let calendarEl = document.getElementById('calendar');
     calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
+        fixedWeekCount: false,
         headerToolbar: {                      // 위쪽 툴바
             start: 'title',
             end: 'prev next',
@@ -151,24 +155,56 @@ document.addEventListener('DOMContentLoaded', function () {
             medicineList.innerHTML = "";
             calendar.getEvents().forEach(function (event) {
                 if (event.startStr <= clickedDate && event.endStr > clickedDate) {
-                    let medicineItem = document.createElement('div');
-                    medicineItem.innerHTML +=
-                        event.extendedProps.medicineName + event.extendedProps.periodValue + event.extendedProps.period + "간" +
-                        "일일" + event.extendedProps.dailyDose + "회 " +
-                        event.extendedProps.meal + "-" + event.extendedProps.mealPeriod;
-                    
-                    let colorInput = document.createElement('input');  
+                    let medicineItem = document.createElement('tr');
+                    // 약 이름
+                    let medicineName = document.createElement('td');
+                    medicineName.innerHTML = event.extendedProps.medicineName;
+                    // 복용 횟수
+                    let medicinePeriod = document.createElement('td');
+                    medicinePeriod.innerHTML = event.extendedProps.periodValue + event.extendedProps.period + "간 " +
+                        "일일" + event.extendedProps.dailyDose + "회 ";
+                    // 먹는 기간
+                    let medicineMeal = document.createElement('td');
+                    console.log("a:" + event.extendedProps.meal + "b:" + event.extendedProps.mealPeriod);
+                    if (event.extendedProps.meal[0] != null && event.extendedProps.mealPeriod[0] == null) {
+                        medicineMeal.innerHTML = event.extendedProps.meal;
+                    } else if (event.extendedProps.meal[0] == null && event.extendedProps.mealPeriod[0] != null) {
+                        medicineMeal.innerHTML = event.extendedProps.mealPeriod;
+                    } else if (event.extendedProps.meal[0] != null && event.extendedProps.mealPeriod[0] != null) {
+                        medicineMeal.innerHTML = event.extendedProps.meal + "-" + event.extendedProps.mealPeriod;
+                    } else {
+                        medicineMeal.innerHTML = "";
+                    }
+
+                    // 색
+                    let medicineColor = document.createElement('td');
+                    let colorInput = document.createElement('input');
                     colorInput.type = 'color';
-                    colorInput.onchange = function(){
+                    colorInput.value = '#87CEEB';           // 초기값 : skyblue
+                    colorInput.onchange = function () {
                         event.setProp('color', this.value);
                     };
-                    medicineItem.appendChild(colorInput);
+
+                    medicineItem.appendChild(medicineName);
+                    medicineItem.appendChild(medicinePeriod);
+                    medicineItem.appendChild(medicineMeal);
+                    medicineColor.appendChild(colorInput);
+                    medicineItem.appendChild(medicineColor);
                     medicineList.appendChild(medicineItem);
                 }
             });
         },
     });
     calendar.render();
+
+    function init() {
+        let today_Date = new Date();
+        const todayStr = today_Date.toISOString().split('T')[0];
+        const todayInfo = { date: today_Date, dateStr: todayStr };
+        calendar.trigger('dateClick', todayInfo);
+    }
+
+    init();
 
     function calculateEndDate() {
         let start = new Date(startDate.value);
@@ -229,10 +265,20 @@ function addCalendarInfo(medicineInformation) {
             meal: meal,
             mealPeriod: mealPeriod,
         },
-        color: 'green',
+        color: "skyblue",
     }];
     calendar.addEventSource(newEvent);
     calendar.render();
 
-    console.log(calendar.getEventSources());
+    console.log(newEvent);
+}
+
+// event 제거하기
+function deleteEvent(medicineName) {
+    var events = calendar.getEvents();
+    events.forEach(function (event) {
+        if (event.title == medicineName) {
+            event.remove();
+        }
+    });
 }

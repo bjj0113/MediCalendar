@@ -64,8 +64,6 @@ header img {
 
 /* 내 약 리스트 파트 끝 */
 
-
-
 /* 캘린더 파트 - 달력 출력 부분 */
 #myCalendar {
     position: absolute;
@@ -75,73 +73,28 @@ header img {
     z-index: 900;
 }
 
-/*
-.myCalendar_Container {
-    width: 650px; 
-    margin: 0px;
-    border: 1px solid #ccc;
-    padding: 10px;
+#calendar {
+    height: 450px;
 }
-
-.myCalendar-Header {
-    margin-bottom: 10px;
-}
-
-#currentMonthButton {
-    background-color: #FFF;
-    border: none;
-}
-
-#currentMonth {
-    margin: 0px;
-}
-
-.myCalendar-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    font-weight: bold;
-    padding-bottom: 5px;
-}
-
-.day {
-    padding: 5px;
-}
-
-.myCalendar-dates {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-}
-
-.empty {
-    color: #ccc;
-    cursor: pointer;
-    padding-bottom: 55px;
-}
-
-.date {
-    cursor: pointer;
-    padding-bottom: 55px;
-}
-
-.date:hover {
-    background-color: #f5f5f5;
-}
-*/
 /* 캘린더 파트 - 달력 출력 부분 끝 */
 
 /* 캘린더 파트 - 먹는 약 부분 */
 #medicine_Container {
-    /* width: 650px; */
+    width: 100%;
+    height: 100px;
     margin: 0px auto 30px;
     border: 1px solid #ccc;
-    padding: 10px;
+    border-collapse: collapse;
 }
 
-.head {
-    display: inline;
-    font-size: 25px;
-    padding: 0px 30px;
+#medicine_Container td {
+    text-align: center;
 }
+
+.medicine-head {
+    font-size: 25px;
+}
+
 
 /* 캘린더 파트 - 먹는 약 부분 끝 */
 
@@ -164,7 +117,7 @@ header img {
     position: absolute;
     top: 100%;
     width: 80%;
-    height: 700px;
+    height: 500px;
     z-index: 999;
     padding: 40px;
 
