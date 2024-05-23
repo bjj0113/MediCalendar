@@ -12,7 +12,7 @@ main{
     width: 64%;
     height: 80%;
 }
-main section{
+#map{
     text-align: center;
     border: 1px solid black;
     border-radius: 20px;
@@ -22,12 +22,12 @@ main section{
 }
 
 /* main title */
-main div {
+#page-title {
     text-align: left;
     padding-left: 15px;
     font-size: 30px; 
 }
-main img {
+#main-img {
     width: 30px;
     height: 30px;
 }

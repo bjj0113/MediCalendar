@@ -2,7 +2,6 @@ table {
     width: 100%;
     border-spacing: 0px;
     border-left: 1px solid black;
-
 }
 
 thead {
@@ -18,15 +17,12 @@ thead {
 }
 
 tbody {
-
     td {
         max-width: 100%;
         border-right: 1px solid black;
         border-bottom: 1px solid black;
-
         word-wrap: break-word;
     }
-
     tr:hover {
         background-color: lightgray;
         cursor: pointer;
