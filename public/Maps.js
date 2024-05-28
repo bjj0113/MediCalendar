@@ -1,7 +1,7 @@
 // 위치 정보를 받아오는 함수
 function getCurrentLocation() {
     return new Promise((resolve, reject) => {
-        if (navigator.geolocation){
+        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 position => {
                     resolve({
@@ -19,56 +19,94 @@ function getCurrentLocation() {
     });
 }
 
-// 네이버 지도를 초기화하는 함수
-function initializeMap(lat, lng) {
-    console.log('지도 위도:'+lat+',경도:'+lng);
-    let mapDiv = document.getElementById('map');
+// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+var markers = [];
 
-    let mapOptions = {
-        center: new naver.maps.LatLng(lat, lng),
-        zoom: 15
+function initMap(lat, lng) {
+    var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
+    var mapOption = {
+        center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+        level: 4 // 지도의 확대 레벨
     };
-    let map = new naver.maps.Map(mapDiv,mapOptions);
-    /* let marker = new naver.maps.Marker({     // 마커 표시
-        position: new naver.maps.LatLng(lat, lng),
-        map: map
-    }); */
-}
 
-// 약국 정보를 검색하여 지도에 마커로 표시하는 함수
-function searchPharmacies(lat, lng) {
-    naver.maps.Service.geocode({
-        query: "약국",
-        coordinate: `${lng},${lat}`,
-    }, function(status, response){
-        if(status === naver.maps.Service.Status.ERROR){
-            return alert("Error");
-        }
-        console.log(response);
+    // 지도를 생성합니다    
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+
+    // 장소 검색 객체를 생성합니다
+    var ps = new kakao.maps.services.Places(map);
+    
+    // 지도의 중심이 변경될 때마다 함수 실행
+    kakao.maps.event.addListener(map, 'center_changed', function () {
+        searchPlacesAndDisplayMarkers();
     });
-}
 
-// 위치 정보를  받아서 지도를 초기화하는 함수
-async function showMap() {
-    try {
-        const location = await getCurrentLocation();
-        initializeMap(location.lat, location.lng);
-        searchPharmacies(location.lat, location.lng);
-    } catch (error) {
-        console.error("Error getting location: ", error);
+    searchPlacesAndDisplayMarkers();
+
+    // 지도의 중심이 변할 때마다 함수 실행
+    function searchPlacesAndDisplayMarkers() {
+        // 현재 지도의 중심좌표를 얻습니다
+        var center = map.getCenter();
+
+        // 이전 마크 제거
+        clearMarkers();
+
+        // 카테고리로 은행을 검색합니다
+        ps.categorySearch('PM9', placesSearchCB, {
+            location: new kakao.maps.LatLng(center.getLat(), center.getLng()),
+            radius: 1000
+        });
+    }
+
+    // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+    function placesSearchCB(data, status, pagination) {
+        if (status === kakao.maps.services.Status.OK) {
+            for (var i = 0; i < data.length; i++) {
+                displayMarker(data[i]);
+            }
+        }
+    }
+
+    // 지도에 마커를 표시하는 함수입니다
+    function displayMarker(place) {
+        // 로컬 이미지 경로
+        var imageSrc = './hospital.svg';
+        // 마커 이미지의 이미지 크기 입니다
+        var imageSize = new kakao.maps.Size(31, 35);
+        // 마커 이미지를 생성합니다    
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+        // 마커를 생성하고 지도에 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: new kakao.maps.LatLng(place.y, place.x),
+            image: markerImage
+        });
+
+        markers.push(marker);
+
+        // 마커에 클릭이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, 'click', function () {
+            // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+            infowindow.setContent('<div style="padding:5px;text-align:center;min-width:150px"><span style="font-size:15px">'
+                + place.place_name + '</span><br /><span style="font-size:12px">'
+                + place.road_address_name + '</span></div>');
+            infowindow.open(map, marker);
+        });
+    }
+
+    // 마커를 모두 제거하는 함수
+    function clearMarkers() {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+        markers = [];
     }
 }
 
-// 네이버 지도 API를 동적으로 로드하는 함수
-function loadNaverMapScript() {
-    const script = document.createElement('script');
-    script.src = "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=4p1l06c97z&submodules=geocoder";
-    script.async = true;
-    script.onload = () => {
-        showMap();
-    };
-    document.head.appendChild(script);
-}
-
-// 페이지 로드 시 지도를 표시
-document.addEventListener("DOMContentLoaded", loadNaverMapScript);
+getCurrentLocation().then(location => {
+    initMap(location.lat, location.lng);
+}).catch(error => {
+    console.error("Error fetching location : ", error);
+    initMap(37.566826, 126.9786567);
+});

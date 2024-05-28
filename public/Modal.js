@@ -84,14 +84,17 @@ function renderMedicineList() {
 
         const medicineName = document.createElement("span");    // 약 이름을 표기하는 span 요소 생성
         medicineName.classList.add("medicineName");             // medicine 클래스 추가
-        medicineName.textContent = (i + 1) + "." + dummyData[i];  // 약 이름 표시
+        medicineName.textContent = (i + 1) + ". " + dummyData[i];  // 약 이름 표시
         medicineElement.appendChild(medicineName);              // div 요소에 약 이름 추가
 
         const buttons = document.createElement("div");          // 버튼 관리하는 div 생성
         buttons.classList.add("medicineList-buttons");          // medicineList-buttons 클래스 추가
 
         const medicineCalendar = document.createElement("button");  // 캘린더에 추가하는 button 요소 생성
-        medicineCalendar.textContent = "+";                         // 추가 버튼 표시
+        const addButton = document.createElement('span');           // add 버튼 생성
+        addButton.classList.add("material-symbols-outlined");
+        addButton.textContent = 'event_note';
+        medicineCalendar.appendChild(addButton);
         medicineCalendar.classList.add("addCalendar");              // addCalendar 클래스 추가
         medicineCalendar.onclick = function () {
             modal.style.display = "flex";
@@ -101,7 +104,10 @@ function renderMedicineList() {
         buttons.appendChild(medicineCalendar);                      // div 요소에 캘린더 버튼 추가
 
         const medicineDelete = document.createElement("button");    // 약 리스트 삭제 button 요소 생성
-        medicineDelete.textContent = "-";                           // 삭제 버튼 표시
+        const deleteButton = document.createElement('span');        // delete 버튼 생성
+        deleteButton.classList.add("material-symbols-outlined");
+        deleteButton.textContent = 'delete';
+        medicineDelete.appendChild(deleteButton);
         medicineDelete.classList.add("delete");                     // delete 클래스 추가
         medicineDelete.onclick = function () {
             deleteEvent(medicineName.textContent.substring(2));

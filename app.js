@@ -1,6 +1,7 @@
 const config = require('./config/env');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
+const { connectDB } = require('./config/database');
 
 var express = require('express')
     , http = require('http')
@@ -35,8 +36,10 @@ app.use(static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 
-
 // Express 서버 시작
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port '  + app.get("port"));
+
+    //db와 연결을 위한 함수 호출
+    connectDB();
 });

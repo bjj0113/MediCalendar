@@ -9,22 +9,25 @@
         @import url("myPage.css");
     </style>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 </head>
 
 <body>
     <main>
         <header>
-            <img id="main-img" src="galaxys7.png" alt="My Image">
+            <img id="main-img" src="logo.svg" alt="LogoImg">
             MediCalendar
         </header>
 
         <!-- 내 약 리스트 -->
         <div id="myMedicineList">
-            <span id="myMedicineList_Header">내 약 리스트</span>
+            <div id="myMedicineList_Header">내 약 리스트</div>
             <div class="myMedicineList-Container">
                 <div class="myMedicineList-list" id="myMedicineList_List"></div>
             </div>
-            <button type="button" id="myMedicineList_Add">추가</button>
+            <div id="myMedicineList_Add"><button type="button">
+                <span class="material-symbols-outlined" id="add_circle">add_circle</span>
+                </button></div>
         </div>
 
         <!-- 캘린더 파트 -->
@@ -49,37 +52,37 @@
         <!-- 약 캘린더에 추가하기(Modal) -->
         <div id="addMedicine_Modal">
             <div id="modal_body">
-                <span id="modal_head">Add Medicine</span><br>
-                <span id="modal_headtext">복용기간을 선택해주세요.</span>
+                <div id="modal_head">Add Medicine</div><br>
+                <div id="modal_headtext">복용기간을 선택해주세요.</div>
                 <ul>
-                    <li>시작 날짜 입력 : <input type="date" name="startDate"></li>
+                    <li>시작 날짜 입력 : <input type="date" name="startDate" class="modal_input"></li>
                     <li>복용 기간 입력 :
-                        <input type="number" name="periodValue" value="1" min="1" max="100" step="1">
-                        <select name="period">
+                        <input type="number" name="periodValue" class="modal_input" value="1" min="1" max="100" step="1">
+                        <select name="period" id="select_period">
                             <option value="일" selected>일</option>
                             <option value="주">주</option>
                             <option value="개월">월</option>
                         </select>
                     </li>
-                    <li>종료 날짜 입력 : <input type="date" name="endDate"></li>
+                    <li>종료 날짜 입력 : <input type="date" name="endDate" class="modal_input"></li>
                     <li>일일 복용량 :
-                        <input type="number" name="dailyDose" value="1" min="1" max="5" step="1">회 (
+                        <input type="number" name="dailyDose" class="modal_input" value="1" min="1" max="5" step="1">회 (
                         <label><input type="checkbox" name="meal" value="아침">아침</label>
                         <label><input type="checkbox" name="meal" value="점심">점심</label>
                         <label><input type="checkbox" name="meal" value="저녁">저녁</label> )<br>
-                        ( <label><input type="checkbox" name="meal-period" value="식전">식전</label>
+                        <span id="for_margin">(</span> 
+                        <label><input type="checkbox" name="meal-period" value="식전">식전</label>
                         <label><input type="checkbox" name="meal-period" value="식중">식중</label>
                         <label><input type="checkbox" name="meal-period" value="식후">식후</label> )
                     </li>
                 </ul>
-                <button id="modal_close">x</button>
-                <button id="modal_CalendarAdd">추가</button>
-                <button id="modal_CalendarClose">취소</button>
+                <button id="modal_close"><span class="material-symbols-outlined" id="cancel_button">cancel</span></button>
+                <input type="button" id="modal_CalendarAdd" value="추가" />
+                <input type="button" id="modal_CalendarClose" value="취소" />
             </div>
         </div>
     </main>
     <aside>
-        <!-- 로그인 버튼 -->
         <!-- 로그인 버튼 -->
         <!-- 네이버 로그인 이미지로 -->
         <!-- <a href="/auth/naverlogin"> -->
@@ -103,16 +106,25 @@
         <br>
         <nav>
             <!-- 목차 -->
+            <div id="page">Page</div>
             <ul>
-                <h1>Page</h1>
                 <label>
-                    <li><a href="MainPage.html" target="_self">Home</a></li>
+                    <li><a href="MainPage.html" target="_self">
+                        <span class="material-symbols-outlined" style="font-size: 20px;">description</span>
+                        Home
+                    </a></li>
                 </label>
                 <label>
-                    <li><a href="MyPage.html" target="_self">My Medicine</a></li>
+                    <li><a href="MyPage.html" target="_self">
+                        <span class="material-symbols-outlined" style="font-size: 20px;">description</span>
+                        My Medicine
+                    </a></li>
                 </label>
                 <label>
-                    <li><a href="Maps.html" target="_self">Pharmacy</a></li>
+                    <li><a href="Maps.html" target="_self">
+                        <span class="material-symbols-outlined" style="font-size: 20px;">description</span>
+                        Pharmacy
+                    </a></li>
                 </label>
             </ul>
         </nav>
