@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url("myPage.css");
+    </style>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+</head>
+
+<body>
+    <main>
+        <header>
+            <img id="main-img" src="galaxys7.png" alt="My Image">
+            MediCalendar
+        </header>
+
+        <!-- 내 약 리스트 -->
+        <div id="myMedicineList">
+            <span id="myMedicineList_Header">내 약 리스트</span>
+            <div class="myMedicineList-Container">
+                <div class="myMedicineList-list" id="myMedicineList_List"></div>
+            </div>
+            <button type="button" id="myMedicineList_Add">추가</button>
+        </div>
+
+        <!-- 캘린더 파트 -->
+        <div id="myCalendar">
+            <!-- 달력 -->
+            <div id="calendar"></div>
+
+            <!-- 먹는 약 출력 -->
+            <table id="medicine_Container">
+                <thead>
+                    <tr class="medicine-head">
+                        <th><span id="todayDate"></span></th>
+                        <th>복용 횟수</th>
+                        <th>먹는 시간</th>
+                        <th>색</th>
+                    </tr>
+                </thead>
+                <tbody id="medicineList"></tbody>
+            </table>
+        </div>
+
+        <!-- 약 캘린더에 추가하기(Modal) -->
+        <div id="addMedicine_Modal">
+            <div id="modal_body">
+                <span id="modal_head">Add Medicine</span><br>
+                <span id="modal_headtext">복용기간을 선택해주세요.</span>
+                <ul>
+                    <li>시작 날짜 입력 : <input type="date" name="startDate"></li>
+                    <li>복용 기간 입력 :
+                        <input type="number" name="periodValue" value="1" min="1" max="100" step="1">
+                        <select name="period">
+                            <option value="일" selected>일</option>
+                            <option value="주">주</option>
+                            <option value="개월">월</option>
+                        </select>
+                    </li>
+                    <li>종료 날짜 입력 : <input type="date" name="endDate"></li>
+                    <li>일일 복용량 :
+                        <input type="number" name="dailyDose" value="1" min="1" max="5" step="1">회 (
+                        <label><input type="checkbox" name="meal" value="아침">아침</label>
+                        <label><input type="checkbox" name="meal" value="점심">점심</label>
+                        <label><input type="checkbox" name="meal" value="저녁">저녁</label> )<br>
+                        ( <label><input type="checkbox" name="meal-period" value="식전">식전</label>
+                        <label><input type="checkbox" name="meal-period" value="식중">식중</label>
+                        <label><input type="checkbox" name="meal-period" value="식후">식후</label> )
+                    </li>
+                </ul>
+                <button id="modal_close">x</button>
+                <button id="modal_CalendarAdd">추가</button>
+                <button id="modal_CalendarClose">취소</button>
+            </div>
+        </div>
+    </main>
+    <aside>
+        <!-- 로그인 버튼 -->
+        <!-- 로그인 버튼 -->
+        <!-- 네이버 로그인 이미지로 -->
+        <!-- <a href="/auth/naverlogin"> -->
+        <!-- <img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG" alt="네이버 로그인"> -->
+        <!-- </a> -->
+
+        <!-- 로그인 버튼 누르면 바로 네이버 로그인 뜨게 -->
+        <form action="/auth/naverlogin" method="get">
+            <input type="hidden" id="currentUrl" name="currentUrl" value="">
+            <input id="login" type="submit" value="로그인" size="30" onclick="">
+        </form>
+        <script>
+            function setCurrentUrl() {
+                var currentUrl = window.location.href;
+                document.getElementById('currentUrl').value = currentUrl;
+            }
+
+            // 페이지 로드 시 setCurrentUrl 함수 호출
+            window.onload = setCurrentUrl;
+        </script>
+        <br>
+        <nav>
+            <!-- 목차 -->
+            <ul>
+                <h1>Page</h1>
+                <label>
+                    <li><a href="MainPage.html" target="_self">Home</a></li>
+                </label>
+                <label>
+                    <li><a href="MyPage.html" target="_self">My Medicine</a></li>
+                </label>
+                <label>
+                    <li><a href="Maps.html" target="_self">Pharmacy</a></li>
+                </label>
+            </ul>
+        </nav>
+    </aside>
+    <script type="module" src="modal.js"></script>
+</body>
+
+</html>

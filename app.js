@@ -1,6 +1,7 @@
 const config = require('./config/env');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
+const { connectDB } = require('./config/database');
 
 var express = require('express')
     , http = require('http')
@@ -10,7 +11,7 @@ var express = require('express')
 var bodyParser = require('body-parser')
     , static = require('serve-static');
 
-// 익스프레스 객체 생성
+// 익스프레스 객체 생성 
 var app = express();
 
 //클라이언트에서 ajax로 요청 시 cors(다중 서버 접속) 지원
@@ -28,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // body-parser를 이용해 application/json 파싱
 app.use(bodyParser.json());
 
+
 //public 폴더 오픈
 app.use('/public', static(path.join(__dirname, 'public')));
 app.use(static(path.join(__dirname, 'public')));
@@ -39,4 +41,7 @@ app.use('/auth', authRouter);
 // Express 서버 시작
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port '  + app.get("port"));
+
+    //db와 연결을 위한 함수 호출
+    connectDB();
 });

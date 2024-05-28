@@ -31,7 +31,7 @@ function search() {
         queryParams += '&' + encodeURIComponent('itemName') + '=' + encodeURIComponent(inputValue);
     else if (radioValue == 'entpName') // 업체명을 선택한 경우
         queryParams += '&' + encodeURIComponent('entpName') + '=' + encodeURIComponent(inputValue);
-    else if (radioValue += 'efcyQesitm') // 효능을 선택한 경우
+    else if (radioValue == 'efcyQesitm') // 효능을 선택한 경우
         queryParams += '&' + encodeURIComponent('efcyQesitm') + '=' + encodeURIComponent(inputValue);
         
     queryParams += '&' + encodeURIComponent('type') + '=' + encodeURIComponent('json'); //요청 타입 설정 'json'
@@ -114,6 +114,24 @@ function lastrowClicked(event) {
     console.log("내약에 추가하기");
     console.log('현재 행의 품목 기준코드:' + itemSeq); 
 
+     // 추가 버튼을 눌렀을 때 서버로 데이터 전송
+     fetch('/addMedicine', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ itemName: itemName, itemSeq: itemSeq })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Medicine added successfully:', data);
+        // 여기서 추가 완료 메시지 등을 표시할 수 있음
+    })
+    .catch(error => {
+        console.error('Error adding medicine:', error);
+        // 에러 처리
+    });
+    
     event.stopPropagation(); // 아래 이벤트 수행 안되게 함.
 }
 
