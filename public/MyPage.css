@@ -36,15 +36,17 @@ header img {
 }
 
 #myMedicineList_Header {
-    font-size: 20px;
+    font-size: 30px;
     margin-bottom: 25px;
+    text-align: center;
 }
 
 .medicineList {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 5px;
+    padding: 10px 0;
+    border-bottom: 1px dotted black;
 }
 
 .medicineName {
@@ -59,6 +61,12 @@ header img {
 
 #myMedicineList_List button {
     margin-left: 15px;
+}
+
+#myMedicineList_Add {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }
 /* 내 약 리스트 파트 끝 */
 
@@ -90,7 +98,14 @@ header img {
 }
 
 .medicine-head {
+    padding: 20px 0;
     font-size: 25px;
+}
+
+input[type=color] {
+    background-color: white;
+    border: none;
+    cursor: pointer;
 }
 
 /* 캘린더 파트 - 먹는 약 부분 끝 */
@@ -126,15 +141,46 @@ header img {
 }
 
 #modal_head {
-    font-size: 35px;
+    font-size: 60px;
+    text-align: center;
 }
 
 #modal_headtext {
-    font-size: 25px;
+    font-size: 20px;
+    margin-left: 50px;
 }
 
 #modal_body li{
-    font-size: 25px;
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+.modal_input {
+    font-size: 24px;
+    border: none;
+    border-bottom: 3px solid black;
+}
+
+#select_period {
+    font-size: 24px;
+    border: 2px solid black;
+}
+
+input[type=number] {
+    text-align: end;
+    width: 45px;
+}
+
+input[type=checkbox] {
+    width: 20px;
+    height: 20px; 
+    border: 3px solid black; 
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#for_margin {
+    margin-left: 300px;
 }
 
 #modal_close {
@@ -146,7 +192,7 @@ header img {
 #modal_CalendarAdd {
     position:absolute;
     bottom: 30px;
-    right: 100px;
+    right: 160px;
 }
 
 #modal_CalendarClose {
@@ -165,26 +211,34 @@ aside {
     height: 100%;
 }
 
+#loginForm {
+    text-align: center;
+}
+
 nav {
     border: 1px solid black;
     border-radius: 20px;
     height: 80%;
     margin-right: 10%;
-    justify-content: center;
-    align-items: center;
+}
 
+#page {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.list {
+    margin: 10px 0;
+    font-size:25px;
 }
 
 #login {
     background-color: white;
-    border-radius: 20px;
     padding: 0px;
-    height: 40px;
-    width: 100px;
     margin-top: 15px;
     margin-bottom: 15px;
-    font-size: larger;
-
 }
 
 #login:hover {
@@ -203,3 +257,31 @@ ul label :hover {
 }
 
 /* 목차 끝 */
+
+/* 아이콘 css 모음 */
+button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+input[type=button] {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 100px;
+    height: 35px;
+    font-size: 15px;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+#add_circle {
+    font-size: 30px;
+}
+
+#cancel_button {
+    font-size: 30px;
+}

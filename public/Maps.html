@@ -5,15 +5,15 @@
     <meta charset="utf-8">
     <title>MediCalendar</title>
     <link rel="stylesheet" href="Maps.css" />
-    <!-- <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=4p1l06c97z&submodules=geocoder"></script> -->
-
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e4c2bccf6b7a89a96010cc3bd8c4a075&libraries=services"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 </head>
 
 <body>
     <main id="maps">
         <!-- 제목 -->
         <div id="page-title">
-            <img id="main-img" src="galaxys7.png" alt="My Image">
+            <img id="main-img" src="logo.svg" alt="LogoImg">
             MediCalendar
         </div>
 
@@ -25,32 +25,56 @@
 
     <aside>
         <!-- 로그인 버튼 누르면 바로 네이버 로그인 뜨게 -->
-        <form action="/auth/naverlogin" method="get">
+        <form id ='loginForm' action="/auth/naverlogin" method="get">
             <input type="hidden" id="currentUrl" name="currentUrl" value="">
-            <input id="login" type="submit" value="로그인" size="30" onclick="">
+            <button id="login" type="submit" size="30"><img src="login.png" width="120px" height="40px"></button>
         </form>
         <script>
             function setCurrentUrl() {
                 var currentUrl = window.location.href;
                 document.getElementById('currentUrl').value = currentUrl;
             }
+            function checkLoginStatus() {
+                fetch('/auth/checklogin')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.LoggedIn) {
+                            //console.log(3);
+                            document.getElementById('login').innerHTML =  '<img src="logout.png" width="130px" height="40px">';
+                            document.getElementById('loginForm').action = '/auth/logout';
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
 
-            // 페이지 로드 시 setCurrentUrl 함수 호출
-            window.onload = setCurrentUrl;
+            // 페이지 로드 시 setCurrentUrl 함수와 checkLoginStatus 함수 호출
+            window.onload = function () {
+                setCurrentUrl();
+                checkLoginStatus();
+            }
         </script>
         <br>
         <nav>
             <!-- 목차 -->
+            <div id="page">Page</div>
             <ul>
-                <h1>Page</h1>
                 <label>
-                    <li><a href="MainPage.html" target="_self">Home</a></li>
+                    <li class="list"><a href="MainPage.html" target="_self">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">description</span>
+                            Home
+                        </a></li>
                 </label>
                 <label>
-                    <li><a href="MyPage.html" target="_self">My Medicine</a></li>
+                    <li class="list"><a href="MyPage.html" target="_self">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">description</span>
+                            My Medicine
+                        </a></li>
                 </label>
                 <label>
-                    <li><a href="Maps.html" target="_self">Pharmacy</a></li>
+                    <li class="list"><a href="Maps.html" target="_self">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">description</span>
+                            Pharmacy
+                        </a></li>
                 </label>
             </ul>
         </nav>

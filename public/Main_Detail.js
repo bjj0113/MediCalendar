@@ -53,9 +53,7 @@ function load_detail() {
             //header 
             title.innerHTML += '<img src="' + itemImage + '" width="50" height="50">';
             title.innerHTML += '<span>' + itemName + '</span>';
-            title.innerHTML += '<input id="close" type="button" value="X" onclick = "window.parent.modal_close()"><hr>';
-
-
+            title.innerHTML += '<button id="close" type="button" onclick="window.parent.modal_close()"><span class="material-symbols-outlined" id="cancel_button">cancel</span></button><hr>';
 
             //상세정보 목록 배열
             let infolist = ['업체명', '품목기준코드', '효능', '사용법', '사용하기 전 반드시 알아야 할 사항', '주의 사항', '상호 작용', '부작용', '보관법'];

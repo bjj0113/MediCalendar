@@ -16,7 +16,7 @@ main{
     text-align: center;
     border: 1px solid black;
     border-radius: 20px;
-    margin: 0px;
+    margin-top: 30px;
     width : 100%;
     height : 100%;
 }
@@ -41,26 +41,35 @@ aside{
     height: 100%;
     
 }
+
+#loginForm {
+    text-align: center;
+}
+
 nav{ 
     border: 1px solid black;
     border-radius: 20px;
     height: 80%;
     margin-right: 10%;
-    justify-content: center;
-    align-items: center;
-    
 }
 
-#login{
+#page {
+    text-align: center;
+    font-size: 33px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.list {
+    margin: 10px 0;
+    font-size:25px;
+}
+
+#login {
     background-color: white;
-    border-radius: 20px;
-    padding :0px;
-    height: 40px;
-    width: 100px;
+    padding: 0px;
     margin-top: 15px;
     margin-bottom: 15px;
-    font-size: larger;
-    
 }
 
 #login:hover{
@@ -75,4 +84,15 @@ ul label :active {
 }
 ul label :hover{
     font-weight: bold;
+}
+
+/* 아이콘 css 모음 */
+button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+nav ul {
+    list-style-type: none;
 }

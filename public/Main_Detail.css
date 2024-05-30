@@ -30,13 +30,8 @@ header span {
 #close {
     float: right;
     font-weight: bold;
-    border-radius: 40%;
-    border: 10px;
     background-color: white;
-}
-
-#close:hover {
-    background-color: gray;
+    border: none;
 }
 
 article h3 {

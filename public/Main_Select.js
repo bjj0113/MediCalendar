@@ -1,7 +1,7 @@
 //세션스토리지에서 검색어와 라디오버튼 옵션 갖고 오기
 const inputValue = sessionStorage.getItem('inputValue');
 const radioValue = sessionStorage.getItem('radioValue');
- // console.log(inputValue); // 입력 값 확인
+// console.log(inputValue); // 입력 값 확인
 
 var pageNo = 1; // 시작 페이지넘버
 var totalCount = 0; // totalCount 선언 api에서 받아온 결과의 수
@@ -26,14 +26,14 @@ function search() {
     var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + serviceKey;
     queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent(pageNo);  //페이지번호
     queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); // 한페이지 결과 수
-    
+
     if (radioValue == 'itemName') // 약품명을 선택한 경우
         queryParams += '&' + encodeURIComponent('itemName') + '=' + encodeURIComponent(inputValue);
     else if (radioValue == 'entpName') // 업체명을 선택한 경우
         queryParams += '&' + encodeURIComponent('entpName') + '=' + encodeURIComponent(inputValue);
-    else if (radioValue += 'efcyQesitm') // 효능을 선택한 경우
+    else if (radioValue == 'efcyQesitm') // 효능을 선택한 경우
         queryParams += '&' + encodeURIComponent('efcyQesitm') + '=' + encodeURIComponent(inputValue);
-        
+
     queryParams += '&' + encodeURIComponent('type') + '=' + encodeURIComponent('json'); //요청 타입 설정 'json'
 
     xhr.open('GET', url + queryParams);
@@ -106,13 +106,34 @@ function lastrowClicked(event) {
     var cells = clickedRow.querySelectorAll('td');
     var itemName = cells[0].innerText; // 약품명
     var itemSeq = cells[1].innerText; // 품목기준코드
-    
+
     //추가 버튼 눌렀을 때 그 행 정보 갖고 내 약에 추가하기  
     //세션스토리지에 추가
     sessionStorage.setItem('itemSeq', itemSeq, '*');    //세션에 품목기준코드 추가
     sessionStorage.setItem('itemName', itemName, '*');  //세션에 약품명 추가
     console.log("내약에 추가하기");
-    console.log('현재 행의 품목 기준코드:' + itemSeq); 
+    console.log('현재 행의 품목 기준코드:' + itemSeq);
+
+    // 추가 버튼을 눌렀을 때 서버로 데이터 전송
+    fetch('/addMedicine', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ itemName: itemName, itemSeq: itemSeq })
+    })
+        .then(response => response.json().then(data => ({ status: response.status, body: data })))
+        .then(({ status, body }) => {
+            if (status === 401 && body.redirect) {
+                alert(body.message);
+            } else if (body.success) {
+                console.log('Medicine added successfully:', body);
+                alert('약이 추가되었습니다.');
+            } else {
+                console.error('Error:', body.error);
+                alert(`Error: ${body.error}`);
+            }
+        })
 
     event.stopPropagation(); // 아래 이벤트 수행 안되게 함.
 }
