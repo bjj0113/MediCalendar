@@ -2,6 +2,9 @@
 공공데이터 활용한 약 검색 사이트 만들기
 
 node_modules 다운로드 위해서 -> npm install
+
 cmd -> mongod -dbpath ~/database
+
 cmd -> mongo -> use MediCalendar
+
 terminal -> node app.js
