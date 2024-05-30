@@ -8,3 +8,5 @@ cmd -> mongod -dbpath ~/database
 cmd -> mongo -> use MediCalendar
 
 terminal -> node app.js
+
+http://localhost:8080/MainPage.html
