@@ -9,4 +9,4 @@ cmd -> mongo -> use MediCalendar
 
 terminal -> node app.js
 
-http://localhost:8080/MainPage.html
+실행 후 -> http://localhost:8080/MainPage.html 로 접속
